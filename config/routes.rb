@@ -10,6 +10,10 @@ Rails.application.routes.draw do
   
   root :to => 'static_pages#home'
   
+  get '/login' => 'user#login' 
+  get '/logout' => 'user#logout'
+
+  
   # get 'static_pages/home'
   # get 'static_pages/booking'
   # get 'static_pages/about'
