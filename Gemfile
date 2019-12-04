@@ -17,7 +17,7 @@ gem 'coffee-rails', '~> 4.2'
 # gem 'therubyracer', platforms: :ruby
 
 
-gem 'devise', '4.6.0'
+gem 'devise', '4.7.1'
 gem "simple_calendar", "~> 2.0"
 gem 'bootstrap', '~> 4.3.1'
 
