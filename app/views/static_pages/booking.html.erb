@@ -1,3 +1,77 @@
 <% provide(:title, "Booking") %>
 <h1>Tennis Court Booking</h1>
 <p>Find me in app/views/static_pages/booking.html.erb</p>
+
+
+
+    <%= week_calendar events: @bookings do |date, bookings| %>
+      <%= date %>
+      <% (9..18).each do |h|%>
+      <div>
+       
+       
+       
+       
+       
+       <table style="width:100%">
+  <tr>
+    <th>Firstname</th>
+    <th>Lastname</th> 
+    <th>Age</th>
+  </tr>
+  <tr>
+    <td>Jill</td>
+    <td>Smith</td>
+    <td>50</td>
+  </tr>
+  <tr>
+    <td>Eve</td>
+    <td>Jackson</td>
+    <td>94</td>
+  </tr>
+  <tr>
+    <td>John</td>
+    <td>Doe</td>
+    <td>80</td>
+  </tr>
+</table>
+<br>
+
+<table id="t01">
+  <tr>
+    <th>Firstname</th>
+    <th>Lastname</th> 
+    <th>Age</th>
+  </tr>
+  <tr>
+    <td>Jill</td>
+    <td>Smith</td>
+    <td>50</td>
+  </tr>
+  <tr>
+    <td>Eve</td>
+    <td>Jackson</td>
+    <td>94</td>
+  </tr>
+  <tr>
+    <td>John</td>
+    <td>Doe</td>
+    <td>80</td>
+  </tr>
+</table> 
+    		<% if h < 12 %>
+    			<%= h %> AM 
+    		<% else %>
+    			<%= h %> PM 
+    		<% end %>
+		
+        <% bookings.each do |booking| %>
+          <% if h.between?(booking.start_time.hour, (booking.start_time.hour + (booking.duration-1)))%> - Booked<% end %>
+          <% if h == booking.start_time.hour%>
+            <%= link_to 'Edit', edit_booking_path(booking) %>
+            <%= link_to 'Cancel', booking, method: :delete, data: { confirm: 'Are you sure?' } %>
+          <% end %>
+        <% end %>
+      </div>
+      <% end %>
+    <% end %>

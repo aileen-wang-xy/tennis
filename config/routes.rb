@@ -1,10 +1,11 @@
 Rails.application.routes.draw do
   
+  resources :bookings
   devise_for :users
   
   root 'static_pages#home'
   
-  get '/booking' => 'static_pages#booking'
+  get '/bookingsheet' => 'static_pages#booking'
   
   get '/about' => 'static_pages#about'
   

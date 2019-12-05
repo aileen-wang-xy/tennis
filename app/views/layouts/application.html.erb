@@ -3,10 +3,11 @@
   <header class="headSec">
     <title><%= yield(:title) %> | DublinTennisClub </title>
     <%= csrf_meta_tags %>
-    <h1>Dublin Tennis Club</h1>
+    <h1><span style="color:#063f66">D</span>ublin <span style="color:#063f66">T</span>ennis <span style="color:#063f66">C</span>lub</h1>
     <ul>
       <li><%= link_to "Home",  "/" %></li>
-      <li><%= link_to "BookingSheets", booking_path %></li>
+      <li><%= link_to "BookingSheets", bookings_path %></li>
+      <li><%= link_to "Booking", new_booking_path %></li>
       <li><%= link_to "About", about_path %></li>
       
       
