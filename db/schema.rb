@@ -10,7 +10,25 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20191115150124) do
+ActiveRecord::Schema.define(version: 20191204183224) do
+
+  create_table "bookings", force: :cascade do |t|
+    t.string   "court_name"
+    t.datetime "start_time"
+    t.integer  "duration"
+    t.decimal  "price"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "items", force: :cascade do |t|
+    t.string   "court"
+    t.date     "day"
+    t.integer  "hour"
+    t.boolean  "is_booked"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false

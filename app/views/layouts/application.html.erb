@@ -6,7 +6,8 @@
     <h1>Dublin Tennis Club</h1>
     <ul>
       <li><%= link_to "Home",  "/" %></li>
-      <li><%= link_to "BookingSheets", booking_path %></li>
+      <li><%= link_to "BookingSheets","/booking" %></li>
+      
       <li><%= link_to "About", about_path %></li>
       
       
@@ -20,6 +21,7 @@
 
       <% if session[:login] == 1 %>
         <li><%= link_to "Admin Logout", logout_path %></li>
+        <li><%= link_to "Booking", bookings_path %></li>
       <% else %>
         <li><%= link_to "Admin Login", login_path %></li>
       <% end %>
@@ -36,7 +38,6 @@
   </div>
   
   <footer class="foot">
-    <h1>Im the Footer</h1>
   </footer>
 
 </html>

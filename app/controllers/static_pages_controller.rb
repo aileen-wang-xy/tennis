@@ -3,6 +3,7 @@ class StaticPagesController < ApplicationController
   end
 
   def booking
+    @bookings = Booking.all
   end
 
   def about

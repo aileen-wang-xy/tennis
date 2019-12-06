@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
   
+  get 'cart/:id' => 'cart#add'
+
+  resources :bookings
   devise_for :users
   
   root 'static_pages#home'
@@ -12,7 +15,11 @@ Rails.application.routes.draw do
   
   get '/login' => 'user#login' 
   get '/logout' => 'user#logout'
+  
+  get '/cart/:id', to: 'cart#add'
 
+  
+  
   
   # get 'static_pages/home'
   # get 'static_pages/booking'
