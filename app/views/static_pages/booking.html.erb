@@ -1,7 +1,10 @@
 <% provide(:title, "Booking") %>
-<p id="notice"><%= notice %></p>
-<h1>Tennis Court Bookingsheet</h1>
 
+<br>
+<div class="w3_agile_team_grid_left">
+	<h3 class="w3l_header w3_agileits_header"><span style="color:#0ac455">B</span>ooking <span>Sheets</span></h3>
+</div>
+<br>
 <% if user_signed_in?%>
 <%= link_to 'New Booking', new_booking_path, :class => "button", :role => "button"  %>
 <br>
@@ -26,10 +29,8 @@
 <br><br><br>
     <%= calendar start_date_param: :today, number_of_days: 7, events: @bookings do |date| %>
       <%= date %>
-
       <% (9..18).each do |h|%>
       <div>
-        
       	<% if h < 12 %>
       		<%= h %> AM 
       	<% else %>
@@ -37,12 +38,10 @@
       	<% end %>
     	
         <% @bookings.each do |booking| %>
-          <% if (date == booking.start_time.to_date) && (h.between?(booking.start_time.hour, (booking.start_time.hour + (booking.duration-1))))%>
+          <% if (date == booking.start_time.to_date) && 
+          (h.between?(booking.start_time.hour, (booking.start_time.hour + (booking.duration-1))))%>
           <% if booking.is_booked %>
-
-
           - Booked
-
           <% end %>
           <% end %>
         <% end %>

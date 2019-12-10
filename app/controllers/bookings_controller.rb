@@ -34,10 +34,6 @@ class BookingsController < ApplicationController
     @court = Court.all
     respond_to do |format|
 
-    d = params[:duration].to_i
-    price = d*5
-    @booking.update_attribute(:price , price)
-
       if @booking.save
         
         format.html { redirect_to @booking, notice: 'Booking was successfully add to your cart.' }

@@ -38,7 +38,7 @@
       <td><%= booking.is_booked %></td>
       <% end %>
       <td><%= link_to 'Show', booking, :class => "button", :role => "button" %></td>
-      <td><%= link_to 'Edit', edit_booking_path(booking), :class => "button", :role => "button" %></td>
+      
       <td><%= link_to 'Delete', booking, method: :delete, data: { confirm: 'Are you sure?' },  :class => "button", :role => "button"%></td>
       
     </tr>
