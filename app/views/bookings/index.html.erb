@@ -10,6 +10,8 @@
       <td><h4>Start time</h4></td>
       <td><h4>Duration</h4></td>
       <td><h4>Price</h4></td>
+      <td><h4>User Id</h4></td>
+      <td><h4>Is-Paid</h4></td>
       <td colspan="3"></td>
     </tr>
     <tr>
@@ -18,13 +20,27 @@
     <% total=0 %>
     <% @bookings.each do |booking| %>
     <tr>
-      <td><%= booking.court_name %></td>
+      <% @courts.each do |court| %>
+        <% if booking.court_id == court.id %>
+          <td><%= court.court_name %></td>
+        <% end %>
+       <% end %>
+      
+      
       <td><%= booking.start_time %></td>
       <td><%= booking.duration %></td>
-      <td><%= number_to_currency(booking.duration*5, :unit =>"€")%></td>
+      <% booking.price = booking.duration*5 %>
+      <td><%= number_to_currency(booking.price, :unit =>"€")%></td>
+      <td><%= booking.user_id %></td>
+      <% if (!booking.is_booked) %>
+      <td>false</td>
+      <% else %>
+      <td><%= booking.is_booked %></td>
+      <% end %>
       <td><%= link_to 'Show', booking, :class => "button", :role => "button" %></td>
       <td><%= link_to 'Edit', edit_booking_path(booking), :class => "button", :role => "button" %></td>
       <td><%= link_to 'Delete', booking, method: :delete, data: { confirm: 'Are you sure?' },  :class => "button", :role => "button"%></td>
+      
     </tr>
       <% total=total+booking.duration*5 %>
     <% end %>
@@ -39,6 +55,6 @@
   </tbody>
 </table>
 <br>
-<%= link_to 'Continue to add new bookings', new_booking_path, :class => "button", :role => "button" %>
+
 
 

@@ -8,12 +8,14 @@ class BookingsController < ApplicationController
   # GET /bookings.json
   def index
     @bookings = Booking.all
+    @courts = Court.all
   end
 
   # GET /bookings/1
   # GET /bookings/1.json
   def show
-    
+    @booking = Booking.find(params[:id])
+    @court = Court.find(@booking.court_id)
   end
 
   # GET /bookings/new
@@ -29,9 +31,15 @@ class BookingsController < ApplicationController
   # POST /bookings.json
   def create
     @booking = Booking.new(booking_params)
-
+    @court = Court.all
     respond_to do |format|
+
+    d = params[:duration].to_i
+    price = d*5
+    @booking.update_attribute(:price , price)
+
       if @booking.save
+        
         format.html { redirect_to @booking, notice: 'Booking was successfully add to your cart.' }
         format.json { render :show, status: :created, location: @booking }
       else
@@ -39,7 +47,7 @@ class BookingsController < ApplicationController
         format.json { render json: @booking.errors, status: :unprocessable_entity }
       end
     end
-    
+
   end
 
   # PATCH/PUT /bookings/1
@@ -61,10 +69,11 @@ class BookingsController < ApplicationController
   def destroy
     @booking.destroy
     respond_to do |format|
-      format.html { redirect_to bookings_url, notice: 'Booking was successfully destroyed.' }
+      format.html { redirect_to '/cart/', notice: 'Booking was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
+  
 
   private
     # Use callbacks to share common setup or constraints between actions.
@@ -74,6 +83,6 @@ class BookingsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def booking_params
-      params.require(:booking).permit(:court_name, :start_time, :duration, :price)
+      params.require(:booking).permit(:court_id, :start_time, :duration, :user_id, :price)
     end
 end

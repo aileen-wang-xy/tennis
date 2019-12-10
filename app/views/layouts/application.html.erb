@@ -1,19 +1,32 @@
 <!DOCTYPE html>
 <html>
+  <html lang="en">
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+
+</style>
+<body>
   <header class="headSec">
     <title><%= yield(:title) %> | DublinTennisClub </title>
     <%= csrf_meta_tags %>
-    <h1>Dublin Tennis Club</h1>
+    <h1><span style="color:#063f66">D</span>ublin <span style="color:#063f66">T</span>ennis <span style="color:#063f66">C</span>lub</h1>
     <ul>
       <li><%= link_to "Home",  "/" %></li>
       <li><%= link_to "BookingSheets","/booking" %></li>
-      
       <li><%= link_to "About", about_path %></li>
       
       
       <% if user_signed_in? %>
        <li><a href="#">Hi <%= current_user.email %></a></li>
        <li><%= link_to 'Sign out', destroy_user_session_path, :method => :delete %></li>
+       <li><%= link_to "My Cart","/cart" %></li>
+       <li><%= link_to "View Orders", orders_path  %></li>
       <% else %>
        <li><%= link_to 'Register', new_user_registration_path %></li> 
        <li><%= link_to 'Sign in', new_user_session_path %></li>
@@ -22,6 +35,7 @@
       <% if session[:login] == 1 %>
         <li><%= link_to "Admin Logout", logout_path %></li>
         <li><%= link_to "Booking", bookings_path %></li>
+        <li><%= link_to "Court", courts_path %></li>
       <% else %>
         <li><%= link_to "Admin Login", login_path %></li>
       <% end %>
@@ -36,8 +50,31 @@
   <div class="container">
     <%= yield %>
   </div>
-  
-  <footer class="foot">
-  </footer>
+
+<!-- Footer -->
+<footer class="w3-container w3-padding-64 w3-center w3-opacity">  
+  <div class="w3-xlarge w3-padding-32">
+    <i class="fa fa-facebook-official w3-hover-opacity"></i>
+    <i class="fa fa-instagram w3-hover-opacity"></i>
+    <i class="fa fa-snapchat w3-hover-opacity"></i>
+    <i class="fa fa-pinterest-p w3-hover-opacity"></i>
+    <i class="fa fa-twitter w3-hover-opacity"></i>
+    <i class="fa fa-linkedin w3-hover-opacity"></i>
+ </div>
+</footer>
+
+<script>
+// Used to toggle the menu on small screens when clicking on the menu button
+function myFunction() {
+  var x = document.getElementById("navDemo");
+  if (x.className.indexOf("w3-show") == -1) {
+    x.className += " w3-show";
+  } else { 
+    x.className = x.className.replace(" w3-show", "");
+  }
+}
+</script>
+
+
 
 </html>

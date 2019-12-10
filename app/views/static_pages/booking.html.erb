@@ -2,32 +2,50 @@
 <p id="notice"><%= notice %></p>
 <h1>Tennis Court Bookingsheet</h1>
 
-
-
 <% if user_signed_in?%>
 <%= link_to 'New Booking', new_booking_path, :class => "button", :role => "button"  %>
+<br>
 <% else %>
-<h3>Only member can book tennis court!</h3>
-<% end %>
+<br>
+<h4>Only <span style="color:#0ac455">member</span> can book tennis court!</h4>
 
-<%= week_calendar events: @bookings do |date, bookings| %>
-  <%= date %>
-  <% (9..18).each do |h|%>
-  <div>
-    
-	<% if h < 12 %>
-		<%= h %> AM 
-	<% else %>
-		<%= h %> PM 
-	<% end %>
-	
-    <% bookings.each do |booking| %>
-      <% if h.between?(booking.start_time.hour, (booking.start_time.hour + (booking.duration-1)))%> - Booked<% end %>
-      <% if h == booking.start_time.hour%>
-        <%= link_to 'Edit', edit_booking_path(booking) %>
-        <%= link_to 'Cancel', booking, method: :delete, data: { confirm: 'Are you sure?' } %>
-      <% end %>
-    <% end %>
-  </div>
-  <% end %>
+<br>
 <% end %>
+<br>
+
+<body>
+	<div class="bookingcontainer">
+    <% @courts.each do |court| %>
+      <tr>
+        <td><%= link_to court.court_name, url_for( :court_id => court.id ), :class => "button", :role => "button" %></td>
+      </tr>
+    <% end %>
+	</div>
+</body>
+
+<br><br><br>
+    <%= calendar start_date_param: :today, number_of_days: 7, events: @bookings do |date| %>
+      <%= date %>
+
+      <% (9..18).each do |h|%>
+      <div>
+        
+      	<% if h < 12 %>
+      		<%= h %> AM 
+      	<% else %>
+      		<%= h %> PM 
+      	<% end %>
+    	
+        <% @bookings.each do |booking| %>
+          <% if (date == booking.start_time.to_date) && (h.between?(booking.start_time.hour, (booking.start_time.hour + (booking.duration-1))))%>
+          <% if booking.is_booked %>
+
+
+          - Booked
+
+          <% end %>
+          <% end %>
+        <% end %>
+      </div>
+    <% end %>
+    <% end %>

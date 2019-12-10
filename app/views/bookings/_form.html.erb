@@ -12,8 +12,8 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :court_name %>
-    <%= f.select(:court_name, options_for_select([['court 1','court 1'], ['court 2','court 2'], ['court 3','court 3'], ['court 4','court 4']]))%>
+    <%= f.label "Court" %>
+    <%= f.collection_select(:court_id, Court.all, :id, :court_name) %>
   </div>
 
   <div class="field">
@@ -26,11 +26,11 @@
     <%= f.number_field :duration %>
   </div>
 
-  <div class="field">
-    <%= f.label :price %>
-    <%= f.text_field :price%>
-  </div>
-
+      <% if current_user %>
+      <%= f.hidden_field :user_id, value: current_user.id%>
+      
+      <% end %>
+      
   <div class="actions">
     <%= f.submit %>
   </div>

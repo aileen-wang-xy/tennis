@@ -29,14 +29,27 @@ class CartController < ApplicationController
 
   
   def index
+    @bookings = Booking.where(user_id: current_user.id).where(is_booked: [nil, false])
+    @courts = Court.all
     # passes a cart to display
     if session[:cart] then
       @cart = session[:cart]
     else
       @cart = {}
-    end  
+    end
   end
-
-
+  
+  def createOrder
+    @orders = Order.last
+    @bookings = Booking.where(user_id: current_user.id).where(is_booked: [nil, false])
+    @courts = Court.all
+    session[:cart] =nil
+     
+    # Step 1: Get the current user
+    @user =User.find(current_user.id)
+    # Step 2: Create a new order and associate it with the current user
+    @order =@user.orders.build(:order_date => DateTime.now, :status => 'Pending')
+    @order.save
+  end     
 
 end

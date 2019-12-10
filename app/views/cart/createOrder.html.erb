@@ -1,0 +1,41 @@
+<h2> Thank you </h2>
+<p>You just placed an order </p>
+
+<table id = "customers">
+<tr>
+    <td> Order reference for the order that you just placed <%= @orders.id%></td>
+</tr>    
+</table>    
+
+<table id ="customers">
+    <% total =0 %>
+    <% @bookings.each do |booking| %>
+    <tr>
+      <% if current_user %>
+        <% @courts.each do |court| %>
+        <% if booking.court_id == court.id %>
+          <td><%= court.court_name %></td>
+        <% end %>
+        <% end %>
+      <td><%= booking.start_time %></td>
+      <td><%= booking.duration %></td>
+      <td><%= number_to_currency(booking.duration*5, :unit =>"€")%></td>
+    <% end %>
+    </tr>
+      <% total=total+booking.duration*5 %>
+    <% end %>    
+    
+    <tr>
+      <td></td>
+      <td></td>
+      <td>You pay: </td>
+      <td><%= number_to_currency(total, :unit => "€") %></td>
+    </tr>
+    
+    <tr>
+        <td><a href = "/paid/<%= @order.id%>" class = "button">Pay Now</td>
+    </tr>
+
+</table>
+
+

@@ -1,24 +1,30 @@
 Rails.application.routes.draw do
   
-  get 'cart/:id' => 'cart#add'
-
+  resources :courts
+  resources :orders do 
+    resources:bookings
+  end
+ 
+  devise_for :users do 
+    resources :orders 
+  end
+  
   resources :bookings
-  devise_for :users
   
   root 'static_pages#home'
   
   get '/booking' => 'static_pages#booking'
-  
   get '/about' => 'static_pages#about'
-  
-  root :to => 'static_pages#home'
   
   get '/login' => 'user#login' 
   get '/logout' => 'user#logout'
   
+  get '/cart/', to: 'cart#index'
   get '/cart/:id', to: 'cart#add'
-
   
+  get '/checkout' => 'cart#createOrder'
+
+  get '/paid/:id' => 'static_pages#paid'
   
   
   # get 'static_pages/home'
